@@ -107,7 +107,7 @@ MadeByLabel.Parent = MainFrame
 
 local Gradient = Instance.new("UIGradient")
 Gradient.Rotation = 0
--- Black removed, colors are balanced to chase each other evenly
+-- Black removed, colors matched to chase each other
 Gradient.Color = ColorSequence.new({
     ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 0)),    -- Red (Start)
     ColorSequenceKeypoint.new(0.12, Color3.fromRGB(255, 255, 255)),-- White
@@ -163,7 +163,7 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
--- Background RGB Loop
+-- Background RGB Cycle
 task.spawn(function()
     local h = 0
     while MainFrame and MainFrame.Parent do
@@ -180,7 +180,7 @@ end)
 local ListFrame = Instance.new("ScrollingFrame")
 ListFrame.Name = "ListFrame"
 ListFrame.Position = UDim2.new(1, 5, 0, 0)
-ListFrame.Size = UDim2.new(0, 160, 0, 240) -- List size matched to main panel height
+ListFrame.Size = UDim2.new(0, 160, 0, 240) -- List size matched to the main panel
 ListFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 ListFrame.BorderSizePixel = 1
 ListFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -208,7 +208,7 @@ MinBtn.MouseButton1Click:Connect(function()
     PlayerSelectBtn.Visible = not isMinimized
     MessageBox.Visible = not isMinimized
     SendBtn.Visible = not isMinimized
-    MadeByLabel.Visible = not isMinimized -- Hide credit label when minimized
+    MadeByLabel.Visible = not isMinimized -- Hide the signature when minimized
     Line.Visible = not isMinimized
     ListFrame.Visible = false
     MainFrame.Size = isMinimized and UDim2.new(0, 250, 0, 40) or UDim2.new(0, 250, 0, 240)
@@ -260,11 +260,11 @@ PlayerSelectBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- [ SEND LOGIC: HEAD BUBBLE ONLY ] --
+-- [ SENDING LOGIC: ONLY BUBBLE OVER HEAD ] --
 SendBtn.MouseButton1Click:Connect(function()
     if not TargetPlayer or MessageBox.Text == "" then return end
     
-    -- Spawns chat bubble directly over the character's head
+    -- Only creates a chat bubble over the character's head
     if TargetPlayer.Character and TargetPlayer.Character:FindFirstChild("Head") then
         Chat:Chat(TargetPlayer.Character.Head, MessageBox.Text, Enum.ChatColor.White)
     end
