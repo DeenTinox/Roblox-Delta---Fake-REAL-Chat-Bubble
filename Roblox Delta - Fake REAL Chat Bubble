@@ -1,0 +1,254 @@
+-- [[ FAKE REAL CHAT BUBBLE - ONLY BUBBLE VERSION PRO ]] --
+
+local Players = game:GetService("Players")
+local Chat = game:GetService("Chat")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+
+-- Main UI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "FakeChatUI_ExactReplica"
+ScreenGui.Parent = game:GetService("CoreGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Main Frame
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Position = UDim2.new(0.5, -165, 0.4, -120)
+MainFrame.Size = UDim2.new(0, 250, 0, 240)
+MainFrame.BorderSizePixel = 1
+MainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.ZIndex = 5
+MainFrame.Parent = ScreenGui
+
+-- Title Label
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Text = "Fake REAL Chat Bubble"
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.BackgroundTransparency = 1
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextXAlignment = Enum.TextXAlignment.Center
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 24
+Title.ZIndex = 6
+Title.Parent = MainFrame
+
+-- Line under title
+local Line = Instance.new("Frame")
+Line.Name = "Line"
+Line.Position = UDim2.new(0, 0, 0, 40)
+Line.Size = UDim2.new(1, 0, 0, 1)
+Line.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Line.BorderSizePixel = 0
+Line.ZIndex = 6
+Line.Parent = MainFrame
+
+-- [ COMPONENTS ] --
+local PlayerSelectBtn = Instance.new("TextButton")
+PlayerSelectBtn.Name = "PlayerSelectBtn"
+PlayerSelectBtn.Position = UDim2.new(0.08, 0, 0, 52)
+PlayerSelectBtn.Size = UDim2.new(0.84, 0, 0, 36)
+PlayerSelectBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+PlayerSelectBtn.BorderSizePixel = 1
+PlayerSelectBtn.BorderColor3 = Color3.fromRGB(255, 255, 255)
+PlayerSelectBtn.Text = "Select Player"
+PlayerSelectBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+PlayerSelectBtn.Font = Enum.Font.SourceSans
+PlayerSelectBtn.TextSize = 20
+PlayerSelectBtn.ZIndex = 7
+PlayerSelectBtn.Parent = MainFrame
+
+local MessageBox = Instance.new("TextBox")
+MessageBox.Name = "MessageBox"
+MessageBox.Position = UDim2.new(0.08, 0, 0, 98)
+MessageBox.Size = UDim2.new(0.84, 0, 0, 36)
+MessageBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+MessageBox.BorderSizePixel = 1
+MessageBox.BorderColor3 = Color3.fromRGB(255, 255, 255)
+MessageBox.PlaceholderText = "Type message..."
+MessageBox.Text = ""
+MessageBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+MessageBox.Font = Enum.Font.SourceSans
+MessageBox.TextSize = 20
+MessageBox.ZIndex = 7
+MessageBox.Parent = MainFrame
+
+local SendBtn = Instance.new("TextButton")
+SendBtn.Name = "SendBtn"
+SendBtn.Position = UDim2.new(0.08, 0, 0, 144)
+SendBtn.Size = UDim2.new(0.84, 0, 0, 42)
+SendBtn.BorderSizePixel = 1
+SendBtn.BorderColor3 = Color3.fromRGB(0, 0, 0)
+SendBtn.Text = "Send Bubble"
+SendBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+SendBtn.Font = Enum.Font.SourceSansBold
+SendBtn.TextSize = 22
+SendBtn.ZIndex = 7
+SendBtn.Parent = MainFrame
+
+-- [ MADE BY DEENTINOX - SLIM CONTINUOUS RGB ] --
+local MadeByLabel = Instance.new("TextLabel")
+MadeByLabel.Name = "MadeByLabel"
+MadeByLabel.Text = "Made By DeenTinox"
+MadeByLabel.Position = UDim2.new(0.08, 0, 0, 198)
+MadeByLabel.Size = UDim2.new(0.84, 0, 0, 18) -- Compact height
+MadeByLabel.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+MadeByLabel.BorderSizePixel = 1
+MadeByLabel.BorderColor3 = Color3.fromRGB(255, 255, 255)
+MadeByLabel.Font = Enum.Font.FredokaOne
+MadeByLabel.TextSize = 13
+MadeByLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+MadeByLabel.ZIndex = 7
+MadeByLabel.Parent = MainFrame
+
+local Gradient = Instance.new("UIGradient")
+Gradient.Rotation = 0
+Gradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 0)),    
+    ColorSequenceKeypoint.new(0.15, Color3.fromRGB(255, 255, 255)),
+    ColorSequenceKeypoint.new(0.30, Color3.fromRGB(255, 0, 128)),  
+    ColorSequenceKeypoint.new(0.45, Color3.fromRGB(128, 0, 128)),  
+    ColorSequenceKeypoint.new(0.60, Color3.fromRGB(255, 165, 0)),  
+    ColorSequenceKeypoint.new(0.75, Color3.fromRGB(255, 255, 0)),  
+    ColorSequenceKeypoint.new(0.90, Color3.fromRGB(0, 191, 255)),  
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 0, 0))     
+})
+Gradient.Parent = MadeByLabel
+
+-- Smooth Continuous Scroll Animation
+task.spawn(function()
+    local offset = 0
+    while MadeByLabel and MadeByLabel.Parent do
+        offset = offset + 0.0025
+        if offset >= 1 then offset = offset - 1 end
+        Gradient.Offset = Vector2.new(offset, 0)
+        task.wait(0.02)
+    end
+end)
+
+-- [ CONTROL BUTTONS ] --
+local CloseBtn = Instance.new("TextButton")
+CloseBtn.Name = "CloseBtn"
+CloseBtn.Size = UDim2.new(0, 26, 0, 26)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+CloseBtn.BorderSizePixel = 1
+CloseBtn.BorderColor3 = Color3.fromRGB(0, 0, 0)
+CloseBtn.Text = "x"
+CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseBtn.Font = Enum.Font.FredokaOne
+CloseBtn.TextSize = 22
+CloseBtn.ZIndex = 20
+CloseBtn.Parent = ScreenGui
+
+local MinBtn = Instance.new("TextButton")
+MinBtn.Name = "MinBtn"
+MinBtn.Size = UDim2.new(0, 26, 0, 26)
+MinBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 255)
+MinBtn.BorderSizePixel = 1
+MinBtn.BorderColor3 = Color3.fromRGB(0, 0, 0)
+MinBtn.Text = "-"
+MinBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+MinBtn.Font = Enum.Font.FredokaOne
+MinBtn.TextSize = 28
+MinBtn.ZIndex = 20
+MinBtn.Parent = ScreenGui
+
+RunService.RenderStepped:Connect(function()
+    if MainFrame and MainFrame.Parent then
+        CloseBtn.Position = MainFrame.Position + UDim2.new(0, MainFrame.Size.X.Offset - 26, 0, -27)
+        MinBtn.Position = MainFrame.Position + UDim2.new(0, MainFrame.Size.X.Offset - 53, 0, -27)
+    end
+end)
+
+-- Background RGB Cycle
+task.spawn(function()
+    local h = 0
+    while MainFrame and MainFrame.Parent do
+        h = h + 0.005
+        if h > 1 then h = 0 end
+        local rgbColor = Color3.fromHSV(h, 1, 1)
+        MainFrame.BackgroundColor3 = rgbColor
+        SendBtn.BackgroundColor3 = rgbColor
+        task.wait(0.04)
+    end
+end)
+
+-- [ PLAYER LIST SIDE PANEL ] --
+local ListFrame = Instance.new("ScrollingFrame")
+ListFrame.Name = "ListFrame"
+ListFrame.Position = UDim2.new(1, 5, 0, 0)
+ListFrame.Size = UDim2.new(0, 160, 0, 240)
+ListFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+ListFrame.BorderSizePixel = 1
+ListFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ListFrame.Visible = false
+ListFrame.ZIndex = 15
+ListFrame.ScrollBarThickness = 6
+ListFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+ListFrame.Parent = MainFrame
+
+local UIListLayout = Instance.new("UIListLayout")
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Parent = ListFrame
+
+UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+    ListFrame.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y)
+end)
+
+-- [ FUNCTIONS ] --
+CloseBtn.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
+
+local isMinimized = false
+MinBtn.MouseButton1Click:Connect(function()
+    isMinimized = not isMinimized
+    PlayerSelectBtn.Visible = not isMinimized
+    MessageBox.Visible = not isMinimized
+    SendBtn.Visible = not isMinimized
+    MadeByLabel.Visible = not isMinimized
+    Line.Visible = not isMinimized
+    ListFrame.Visible = false
+    MainFrame.Size = isMinimized and UDim2.new(0, 250, 0, 40) or UDim2.new(0, 250, 0, 240)
+end)
+
+local TargetPlayer = nil
+PlayerSelectBtn.MouseButton1Click:Connect(function()
+    if isMinimized then return end
+    ListFrame.Visible = not ListFrame.Visible
+    if not ListFrame.Visible then return end
+    
+    for _, child in ipairs(ListFrame:GetChildren()) do 
+        if child:IsA("TextButton") then child:Destroy() end 
+    end
+    
+    for _, p in ipairs(Players:GetPlayers()) do
+        local PBtn = Instance.new("TextButton")
+        PBtn.Size = UDim2.new(1, -12, 0, 30)
+        PBtn.Text = p.Name
+        PBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        PBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+        PBtn.Font = Enum.Font.FredokaOne
+        PBtn.TextSize = 18
+        PBtn.BorderSizePixel = 0
+        PBtn.ZIndex = 16
+        PBtn.Parent = ListFrame
+        
+        PBtn.MouseButton1Click:Connect(function()
+            TargetPlayer = p
+            PlayerSelectBtn.Text = p.Name
+            ListFrame.Visible = false
+        end)
+    end
+end)
+
+-- [ SEND LOGIC ] --
+SendBtn.MouseButton1Click:Connect(function()
+    if not TargetPlayer or MessageBox.Text == "" then return end
+    if TargetPlayer.Character and TargetPlayer.Character:FindFirstChild("Head") then
+        Chat:Chat(TargetPlayer.Character.Head, MessageBox.Text, Enum.ChatColor.White)
+    end
+    MessageBox.Text = ""
+end)
